@@ -22,11 +22,21 @@ public class CompraService {
 
     public Compra realizarCompra(String clienteId, List<ItemCompra> itens) {
         validarItens(itens);
+        
+        Double total = itens.stream()
+                .mapToDouble(item -> {
+                    var produto = produtoRepository.buscarPorId(item.getProdutoId())
+                            .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+                    return produto.getPreco() * item.getQuantidade();
+                })
+                .sum();
+        
         Compra compra = new Compra(
                 UUID.randomUUID().toString(),
                 clienteId,
                 itens,
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                total  
         );
         return compraRepository.salvar(compra);
     }
@@ -45,7 +55,21 @@ public class CompraService {
 
         validarItens(itens);
 
-        Compra atualizada = new Compra(id, clienteId, itens, existente.getDataCompra());
+        Double novoTotal = itens.stream()
+                .mapToDouble(item -> {
+                    var produto = produtoRepository.buscarPorId(item.getProdutoId())
+                            .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+                    return produto.getPreco() * item.getQuantidade();
+                })
+                .sum();
+
+        Compra atualizada = new Compra(
+            id,
+            clienteId,
+            itens,
+            existente.getDataCompra(),
+            novoTotal  
+        );
         return compraRepository.salvar(atualizada);
     }
 

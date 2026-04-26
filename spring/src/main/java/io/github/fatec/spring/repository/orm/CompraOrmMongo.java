@@ -14,6 +14,7 @@ public class CompraOrmMongo {
     private String clienteId;
     private List<Item> itens;
     private LocalDateTime dataCompra;
+    private Double total; 
 
     public static class Item {
         public String produtoId;
@@ -22,15 +23,17 @@ public class CompraOrmMongo {
 
     public CompraOrmMongo() {}
 
-    public CompraOrmMongo(String id, String clienteId, List<Item> itens, LocalDateTime dataCompra) {
+    public CompraOrmMongo(String id, String clienteId, List<Item> itens, LocalDateTime dataCompra, Double total) {
         this.id = id;
         this.clienteId = clienteId;
         this.itens = itens;
         this.dataCompra = dataCompra;
+        this.total = total;  
     }
 
     public String getId() { return id; }
     public String getClienteId() { return clienteId; }
     public List<Item> getItens() { return itens; }
     public LocalDateTime getDataCompra() { return dataCompra; }
+    public Double getTotal() { return total; }  
 }

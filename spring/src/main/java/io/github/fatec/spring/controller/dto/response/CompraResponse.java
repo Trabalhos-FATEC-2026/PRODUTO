@@ -7,7 +7,8 @@ public record CompraResponse(
         String id,
         String clienteId,
         List<Item> itens,
-        LocalDateTime dataCompra
+        LocalDateTime dataCompra,
+        Double total  
 ) {
     public record Item(
             String produtoId,

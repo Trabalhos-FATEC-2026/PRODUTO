@@ -15,14 +15,10 @@ import java.util.UUID;
 public class ProdutoService {
 
     private final ProdutoRepository produtoRepository;
-    private final CompraRepository compraRepository;
 
-    public ProdutoService(ProdutoRepository produtoRepository,
-                          CompraRepository compraRepository) {
-        this.produtoRepository = produtoRepository;
-        this.compraRepository = compraRepository;
-    }
-
+  public ProdutoService(ProdutoRepository produtoRepository) {
+    this.produtoRepository = produtoRepository;
+}
 
     public Produto criarProduto(String nome, Double preco) {
         Produto produto = new Produto(
@@ -55,32 +51,4 @@ public class ProdutoService {
     }
 
 
-    public Compra realizarCompra(String clienteId, List<ItemCompra> itens) {
-
-        if (itens == null || itens.isEmpty()) {
-            throw new RuntimeException("Compra deve possuir itens");
-        }
-
-        for (ItemCompra item : itens) {
-            produtoRepository.buscarPorId(item.getProdutoId())
-                    .orElseThrow(() -> new RuntimeException(
-                            "Produto não encontrado: " + item.getProdutoId()
-                    ));
-        }
-
-        Compra compra = new Compra(
-                UUID.randomUUID().toString(),
-                clienteId,
-                itens,
-                LocalDateTime.now()
-        );
-
-        return compraRepository.salvar(compra);
-    }
-
-
-
-    public List<Compra> listarComprasPorCliente(String clienteId) {
-        return compraRepository.buscarPorClienteId(clienteId);
-    }
 }

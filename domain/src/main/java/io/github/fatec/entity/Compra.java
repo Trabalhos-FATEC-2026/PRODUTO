@@ -10,12 +10,14 @@ public class Compra {
     private String clienteId;
     private List<ItemCompra> itens;
     private LocalDateTime dataCompra;
+    private Double total;
 
-    public Compra(String id, String clienteId, List<ItemCompra> itens, LocalDateTime dataCompra) {
+    public Compra(String id, String clienteId, List<ItemCompra> itens, LocalDateTime dataCompra, Double total) {
         this.id = id;
         this.clienteId = clienteId;
         this.itens = itens;
         this.dataCompra = dataCompra;
+        this.total = total;
     }
 
     public String getId() {
@@ -32,5 +34,9 @@ public class Compra {
 
     public LocalDateTime getDataCompra() {
         return dataCompra;
+    }
+
+    public Double getTotal() {
+        return total;
     }
 }

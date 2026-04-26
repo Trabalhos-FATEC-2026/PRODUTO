@@ -28,7 +28,8 @@ public class CompraAdapterController {
                                 i.getQuantidade()
                         ))
                         .collect(Collectors.toList()),
-                compra.getDataCompra()
+                compra.getDataCompra(),
+                compra.getTotal() 
         );
     }
 }

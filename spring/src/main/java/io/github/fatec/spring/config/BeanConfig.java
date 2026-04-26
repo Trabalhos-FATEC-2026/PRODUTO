@@ -11,15 +11,15 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfig {
 
     @Bean
-    public ProdutoService produtoService(
-            ProdutoRepository produtoRepository,
-            CompraRepository compraRepository
-    ) {
-        return new ProdutoService(produtoRepository, compraRepository);
+    public ProdutoService produtoService(ProdutoRepository produtoRepository) {
+        return new ProdutoService(produtoRepository);
     }
 
     @Bean
-    public CompraService compraService(CompraRepository compraRepository, ProdutoRepository produtoRepository) {
+    public CompraService compraService(
+            CompraRepository compraRepository,
+            ProdutoRepository produtoRepository
+    ) {
         return new CompraService(compraRepository, produtoRepository);
     }
 }
